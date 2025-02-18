@@ -1,0 +1,67 @@
+*******Create a program to collect and store all the cards to assist the users in finding all the cards in a given symbol using Collection interface.
+*******
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Scanner;
+
+class Card {
+    private String suit;
+    private String rank;
+
+    public Card(String suit, String rank) {
+        this.suit = suit;
+        this.rank = rank;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    @Override
+    public String toString() {
+        return "Card { Suit: " + suit + ", Rank: " + rank + " }";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Collection<Card> cards = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of cards you want to add: ");
+        int numberOfCards = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < numberOfCards; i++) {
+            System.out.println("\nEnter details for card " + (i + 1) + ":");
+            System.out.print("Enter suit (e.g., Hearts, Diamonds, Clubs, Spades): ");
+            String suit = scanner.nextLine();
+            System.out.print("Enter rank (e.g., Ace, 2, 3, ... King): ");
+            String rank = scanner.nextLine();
+            cards.add(new Card(suit, rank));
+        }
+
+        System.out.print("\nEnter the suit symbol you want to search for: ");
+        String searchSuit = scanner.nextLine();
+
+        System.out.println("\nCards with suit '" + searchSuit + "':");
+        boolean found = false;
+        for (Card card : cards) {
+            if (card.getSuit().equalsIgnoreCase(searchSuit)) {
+                System.out.println(card);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No cards found with suit '" + searchSuit + "'.");
+        }
+
+        scanner.close();
+    }
+}
